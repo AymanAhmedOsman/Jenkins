@@ -2,7 +2,6 @@ pipeline {
     agent {
         docker {
             image 'python:3.9' // Use an official Python 3.9 Docker image
-            args '-v /path/to/your/code:/workspace' // Mount your code if needed
         }
     }
 
