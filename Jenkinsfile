@@ -1,6 +1,10 @@
 pipeline {
-    agent any
-
+    agent {
+        docker {
+            image 'python:3.9' // Use an official Python 3.9 Docker image
+            args '-v /path/to/your/code:/workspace' // Mount your code if needed
+        }
+    }
 
     stages {
         stage('Setup') {
@@ -24,12 +28,10 @@ pipeline {
         }
 
         stage('Deploy to Prod') {
-
             environment {
-            AWS_ACCESS_KEY_ID = credentials('aws-access-key')
-            AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
-             }
-
+                AWS_ACCESS_KEY_ID = credentials('aws-access-key')
+                AWS_SECRET_ACCESS_KEY = credentials('aws-secret-key')
+            }
             steps {
                 sh "sam deploy -t sam-app/template.yaml --no-confirm-changest --no-fail-on-empty-changest"
             }
