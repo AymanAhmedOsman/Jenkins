@@ -5,7 +5,9 @@ pipeline {
     stages {
         stage('Setup') {
             steps {
-                sh "pip3 install -r sam-app/tests/requirements.txt"    
+                sh '''
+                    python3 -m pip install -r sam-app/tests/requirements.txt
+                '''
             }
         }
 
